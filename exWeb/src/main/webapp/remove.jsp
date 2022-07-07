@@ -21,11 +21,11 @@ String inputPw = request.getParameter("inPW");
 user =new UserDTO(logId,inputPw);
 String url ="";
 
-if(dao.deluser(user.getId(),user.getPassword())){
+if(dao.deluser(user.getId(),user.getPw())){
 	url="_00_index.jsp";
 }
 else
-	url="main.jsp";
+	url="_04.main.jsp";
 response.sendRedirect(url);
 %>
 

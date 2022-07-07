@@ -4,16 +4,16 @@ public class UserDTO {
 	 * id password[] name year month day gender email country mobile
 	 */
 
-	private String id, password, name;
+	private String id, pw, name;
 	private int year, month, day;
 	private String gender, email, country, mobile;
 
 	// constructor
 
-	public UserDTO(String id, String password, String name, int year, int month, int day, String gender, String email,
+	public UserDTO(String id, String pw, String name, int year, int month, int day, String gender, String email,
 			String country, String mobile) {
 		this.id = id;
-		this.password = password;
+		this.pw = pw;
 		this.name = name;
 		this.year = year;
 		this.month = month;
@@ -23,18 +23,18 @@ public class UserDTO {
 		this.country = country;
 		this.mobile = mobile;
 	}
-	public UserDTO(String id, String password) {
+	public UserDTO(String id, String pw) {
 		this.id = id;
-		this.password = password;
+		this.pw = pw;
 	}
 
 	// getter & setter
-	public String getPassword() {
-		return password;
+	public String getPw() {
+		return pw;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 
 	public String getEmail() {

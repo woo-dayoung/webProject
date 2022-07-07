@@ -7,15 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 
 public class UserDAO {
+	
 	//Data Access Object
-//	ArrayList<UserDTO> list = null;
-//	private UserDAO(){
-//		list = new ArrayList<UserDTO>();
-//	}
+	ArrayList<UserDTO> list = null;
+	private UserDAO(){
+		list = new ArrayList<UserDTO>();
+	}
 	private static UserDAO instance = new UserDAO();
 	public static UserDAO getInstance() {
 		return instance;
@@ -25,9 +26,10 @@ public class UserDAO {
 	private ResultSet rs =null;
 	private PreparedStatement pstmt =null; 
 	
-	private String url="jdbc:mysql://localhost:3306/firstJsp";
+	private String url="jdbc:mysql://localhost:3306/firstjsp";
 	private String user ="root";
 	private String password = "root";
+	
 	
 	public Connection getConnection() {
 		try {
@@ -42,7 +44,7 @@ public class UserDAO {
 	}
 	
 	public boolean addUser(UserDTO userDto) {
-		Date date = new Date(userDto.getYear()-1900,userDto.getMonth(),userDto.getDay());
+		Date date = new Date(userDto.getYear()-1900,userDto.getMonth()-1,userDto.getDay());
 		Timestamp birthdate = new Timestamp(date.getTime());
 		//1.
 		String sql= "insert into user values(?,?,?,?,?,?,?,?)"; //sql은 인덱스 1부터 시작
@@ -50,7 +52,7 @@ public class UserDAO {
 			conn=getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userDto.getId());
-			pstmt.setString(2, userDto.getPassword());
+			pstmt.setString(2, userDto.getPw());
 			pstmt.setString(3, userDto.getName());
 			pstmt.setTimestamp(4, birthdate);
 			pstmt.setInt(5, userDto.getGender().equals("man") ? 1 : 2);
@@ -58,7 +60,7 @@ public class UserDAO {
 			pstmt.setString(7, userDto.getCountry());
 			pstmt.setString(8, userDto.getMobile());
 			
-			boolean suc =pstmt.execute();
+			boolean suc = pstmt.execute();
 			System.out.println(suc);
 			//pstmt (쿼리 날릴) 준비 완료
 			if(!suc) {
@@ -74,12 +76,7 @@ public class UserDAO {
 		}
 		return false;
 		
-		
-		
-		
 		//pstmt (쿼리 날릴) 준비 완료
-		
-		
 		
 		//2. Select 조회
 		/*sql = "select * from users where id = ?";
@@ -103,7 +100,6 @@ public class UserDAO {
 		
 	}
 	
-	
 //	public int addUser(UserDTO userdto) {
 //		// 중복 아이디 확인 후,list에 추가
 //		if(checkDuple(userdto.getId())) {
@@ -113,33 +109,31 @@ public class UserDAO {
 //		return -1;
 //	}
 	
-//	public boolean checkDuple(String id) {
-//		for(UserDTO userdto : this.list) {
-//			if(userdto.getId().equals(id))
-//				return false;
-//		}
-//		return true;
-//	}
+	public boolean checkDuple(String id) {
+		for(UserDTO userdto : this.list) {
+			if(userdto.getId().equals(id))
+				return false;
+		}
+		return true;
+	}
 	
 	public boolean checklogpw(String id, String pw) {
-		
 		try {
 			conn=getConnection();
-			
-			String sql= "select id from user where id=? and password=?";
+			String sql= "select id from user where id=? and pw=?";
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setString(1,id);
 			pstmt.setString(2, pw);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
+				System.out.println("로그인 완료");
 				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
 		}
-		
+		System.out.println("로그인 실패");
 		return false;
 	}
 	
@@ -150,6 +144,7 @@ public class UserDAO {
 			pstmt.executeUpdate();
 			System.out.println("delete 성공");
 			pstmt=null;
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("delete 실패");

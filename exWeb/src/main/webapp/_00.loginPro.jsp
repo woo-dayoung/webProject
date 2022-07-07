@@ -21,7 +21,7 @@
 	user = new UserDTO(inputId,inputPw);
 	String url ="";
 	
-	if(dao.checklogpw(user.getId(),user.getPassword())){
+	if(dao.checklogpw(user.getId(),user.getPw())){
 		url="_04.main.jsp";
 		session.setAttribute("log", user.getId());
 	}else
