@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1>GREEN</h1>
-    <form method="post" action="_02.joinPro.jsp">
+    <form method="post" action="_03.joinPro.jsp">
         <div class="contents">
             <input class="req" name="id" type="text" placeholder="id">
             <span class="warning"><br>필수값 입력 바랍니다.</span>

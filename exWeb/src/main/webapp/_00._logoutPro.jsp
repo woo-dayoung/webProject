@@ -8,8 +8,8 @@
 </head>
 <body>
 <%
-session.removeAttribute("log");
-response.sendRedirect("_00_index.jsp");
+	session.removeAttribute("log");
+	response.sendRedirect("_00_index.jsp");
 %>
 
 </body>

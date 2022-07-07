@@ -38,7 +38,7 @@
 	
 	user = new UserDTO(id,pw[0],name,year,month,day,gender,email,country,mobile);
 	String url ="";
-	if(dao.addUser(user)==-1){ 
+	if(dao.addUser(user)){ 
 		//중복으로 인한 회원 가입 실패
 		// join.jsp 페이지 이동 
 		url="_00_index.jsp";

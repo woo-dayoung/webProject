@@ -11,6 +11,8 @@
 <body>
 
 <%
+request.setCharacterEncoding("UTF-8");
+response.setCharacterEncoding("utf-8");
 
 UserDAO dao = UserDAO.getInstance();
 

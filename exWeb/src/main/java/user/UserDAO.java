@@ -1,40 +1,51 @@
 package user;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
-public class UserDAO { // Data Access Object
-	
-	//Singleton Pattern
-	private UserDAO() {
-	}
+import com.mysql.cj.xdevapi.PreparableStatement;
+
+public class UserDAO {
+	//Data Access Object
+//	ArrayList<UserDTO> list = null;
+//	private UserDAO(){
+//		list = new ArrayList<UserDTO>();
+//	}
 	private static UserDAO instance = new UserDAO();
-	
 	public static UserDAO getInstance() {
 		return instance;
 	}
-	ArrayList<UserDTO> list=null;
-	// mysql local DB
-	//1. lib > mysql-connector-driver 라이브러리(.jar)를 넣기(maven repository > mysql java )
-	//2. 데이터베이스 연동 Connection 클래스 import(java.sql)
-	Connection conn=null;
-	ResultSet rs = null;
-	PreparedStatement pstmt =null;
+	
+	private Connection conn = null;
+	private ResultSet rs =null;
+	private PreparedStatement pstmt =null; 
+	
+	private String url="jdbc:mysql://localhost:3306/firstJsp";
+	private String user ="root";
+	private String password = "root";
+	
+	public Connection getConnection() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url,user,password);
+			return conn;
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	public boolean addUser(UserDTO userDto) {
 		Date date = new Date(userDto.getYear()-1900,userDto.getMonth(),userDto.getDay());
 		Timestamp birthdate = new Timestamp(date.getTime());
 		//1.
-		String sql= "insert into users values(?,?,?,?,?,?,?,?)"; //sql은 인덱스 1부터 시작
+		String sql= "insert into user values(?,?,?,?,?,?,?,?)"; //sql은 인덱스 1부터 시작
 		try {
 			conn=getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -63,7 +74,12 @@ public class UserDAO { // Data Access Object
 		}
 		return false;
 		
+		
+		
+		
 		//pstmt (쿼리 날릴) 준비 완료
+		
+		
 		
 		//2. Select 조회
 		/*sql = "select * from users where id = ?";
@@ -86,28 +102,34 @@ public class UserDAO { // Data Access Object
 		*/
 		
 	}
-
-	public int addUser(UserDTO userdto) {
-		// 중복 아이디 확인 후,list에 추가
-		if(checkDuple(userdto.getId())) {
-			this.list.add(userdto);
-			return this.list.size()-1;
-		}
-		return -1;
-	}
 	
-	public boolean checkDuple(String id) {
-		for(UserDTO userdto : this.list) {
-			if(userdto.getId().equals(id))
-				return false;
-		}
-		return true;
-	}
+	
+//	public int addUser(UserDTO userdto) {
+//		// 중복 아이디 확인 후,list에 추가
+//		if(checkDuple(userdto.getId())) {
+//			this.list.add(userdto);
+//			return this.list.size()-1;
+//		}
+//		return -1;
+//	}
+	
+//	public boolean checkDuple(String id) {
+//		for(UserDTO userdto : this.list) {
+//			if(userdto.getId().equals(id))
+//				return false;
+//		}
+//		return true;
+//	}
 	
 	public boolean checklogpw(String id, String pw) {
+		
 		try {
-			getConnection();
-			pstmt= conn.prepareStatement("select id from users where id ='"+ id+"' and pw ='"+pw+"'");
+			conn=getConnection();
+			
+			String sql= "select id from user where id=? and password=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			pstmt.setString(2, pw);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return true;
@@ -121,49 +143,20 @@ public class UserDAO { // Data Access Object
 		return false;
 	}
 	
-	public UserDTO getUser(String id) {
-		UserDTO user = null;
-		conn=UserDAO.getConnection();
+	public boolean deluser(String id, String pw) {
 		try {
-			String sql="select * from User where name = ?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()) {
-				String result = rs.getString(1);
-				user = new UserDTO(result);
-			}
-		} catch (Exception e) {}
-		finally {
-			try {
-				conn.close();
-				pstmt.close();
-				rs.close();
-			} catch (Exception e2) {
-			}
-		}
-		return user;
-	}
-	
-	public static Connection getConnection() {
-		Connection conn=null;
-		
-		 String url="jdbc:mysql://localhost:3306/firstjsp";
-		 String user="root";
-		 String password="root";
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			conn = DriverManager.getConnection(url,user,password);
-			System.out.println("DB연동 성공");
-			return conn;
-		} catch (Exception e) {
+			conn=getConnection();
+			pstmt= conn.prepareStatement("delete from user where id ='"+ id+"' and pw ='"+pw+"'");
+			pstmt.executeUpdate();
+			System.out.println("delete 성공");
+			pstmt=null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("delete 실패");
+			pstmt=null;
 			e.printStackTrace();
-			return null;
 		}
+		return false;
 	}
-	
-
-	
 	
 }

@@ -1,15 +1,15 @@
-<%@page import="user.UserDTO"%>
 <%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<% 
+<% 
 	UserDAO dao = UserDAO.getInstance();
 	UserDTO user= null;
 	request.setCharacterEncoding("UTF-8");
@@ -18,12 +18,11 @@
 	String inputId = request.getParameter("inID");
 	String inputPw = request.getParameter("inPW");
 	
-	user =new UserDTO(inputId,inputPw);
+	user = new UserDTO(inputId,inputPw);
 	String url ="";
 	
-	
 	if(dao.checklogpw(user.getId(),user.getPassword())){
-		url="main.jsp";
+		url="_04.main.jsp";
 		session.setAttribute("log", user.getId());
 	}else
 		url="_00_index.jsp";
@@ -36,7 +35,7 @@
 	
 	//3. 톰캣 세션을 활용한 session에 로그 정보 넣기
 	//session.setAttribute("log", user.getId());
-%>
 
+%>
 </body>
 </html>

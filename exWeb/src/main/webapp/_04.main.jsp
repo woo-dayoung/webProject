@@ -51,7 +51,7 @@
 	<%
 	String log = (String)session.getAttribute("log");
 	System.out.println(log);
-	if(log ==null){
+	if(log == null){
 		response.sendRedirect("_00_index.jsp");
 	}
 	else{%>
