@@ -1,0 +1,40 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+h1{
+	text-align : center;
+    margin: 10% 0 30px 0;
+}
+
+.boardListContainer,formContainer{
+  
+}
+
+table{
+    border-collapse: collapse;
+    border-color: lightblue;
+}
+input#title{
+    width: 70vw;
+}
+textarea{
+    width: 70vw;
+    height: 40vw;
+}
+input ,textarea{
+    padding: 20px;
+    margin: 10px;
+    border: solid 1px lightblue;
+}
+
+input:focus,textarea:focus{
+    outline: none;
+   
+}
