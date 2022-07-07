@@ -64,6 +64,7 @@
 		<input type="password" class="reqlog" name="inPW" placeholder="PASSWORD">
 		<input type="hidden" value="<%=log %>" name="log">
 		<input type="submit"  value="탈퇴">
+		<input type="button" value="게시판" onclick="location.href='_05.board.jsp'">
 		</form>
 		
 </body>

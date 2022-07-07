@@ -25,10 +25,6 @@
                 </tr>      
             </thead>
             <tbody>
-            <%for(int i=0;i<10;i++){
-            	BoardDTO board = new BoardDTO();
-            	
-            %>
             	<tr>
 	                <th>no</th>
 	                <th>code</th>
@@ -38,11 +34,10 @@
 	                <th>createdAt</th>
 	                <th>modifiedAt</th>
                 </tr>
-                <%
-                }
-                %>
             </tbody>
         </table>
+         <input type="button" id="write" value="글쓰기" onclick="location.href = '_06.boardWriteForm.jsp'">
     </div>
+   
 </body>
 </html>

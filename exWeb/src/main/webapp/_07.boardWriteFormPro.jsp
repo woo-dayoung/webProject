@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+request.setCharacterEncoding("UTF-8");
+response.setCharacterEncoding("UTF-8");
+
+
+
+
+
+%>
 
 </body>
 </html>
