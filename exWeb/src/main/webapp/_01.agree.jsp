@@ -14,10 +14,10 @@
 
 <body>
     <h1>GREEN</h1>
-    <form action="join.jsp">
+    <form action="_02.join.jsp">
         <div class="contents">
-            <input id="checkAll" type="checkbox" name="checkAll" value="checkAll">이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택),
-            프로모션 정보 수신(선택)에 모두 동의합니다.<br><br>
+            <input id="checkAll" type="checkbox" name="checkAll" value="checkAll">
+            이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택),프로모션 정보 수신(선택)에 모두 동의합니다.<br><br>
 
             <input type="checkbox" name="agree" value="1">이용약관 동의(필수)<br>
             <p>

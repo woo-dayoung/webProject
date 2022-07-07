@@ -43,7 +43,7 @@
                     <option value="kor">대한민국 +82</option>
                 </select>
                 <input class="req" type="text" id="mobile" name="mobile" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="mobile" title="###-####-####">
-                <input type="button " value="인증" onclick="checkMobile(form)">
+                <input type="button" value="인증" onclick="checkMobile(form)">
                 <span class="warning"><br>필수값 입력 바랍니다.</span>
             </div>
         </div>
