@@ -5,7 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 public class BoardDAO {
+	private static BoardDAO instance = new BoardDAO();
+	public static BoardDAO getInstance() {
+		return instance;
+	}
 	
 	private Connection conn = null;
 	private ResultSet rs =null;
@@ -26,5 +31,11 @@ public class BoardDAO {
 			return null;
 		}
 	}
+	
+	public boolean addboard() {
+		
+	}
+	
+	
 
 }
