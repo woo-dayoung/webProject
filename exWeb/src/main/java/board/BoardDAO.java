@@ -32,7 +32,7 @@ public class BoardDAO {
 		}
 	}
 	
-	public boolean addboard() {
+	public boolean addboard(BoardDTO list) {
 		
 	}
 	

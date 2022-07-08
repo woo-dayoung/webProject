@@ -30,6 +30,9 @@ public class BoardDTO {
 		this.month=month;
 		this.day=day;
 	}
+	public BoardDTO(int no,int code,String title,String contents) {
+		
+	}
 
 	public int getNo() {
 		return no;

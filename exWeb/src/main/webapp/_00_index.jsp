@@ -24,8 +24,8 @@ else{
 }
 %>
 
-	<form method="post" action="_00.loginPro.jsp">
-	<h1>log</h1>
+	<form method="post" action="./login">
+	<h1>LOGIN</h1>
 		<div>
 			<input type="text" class="reqlog" name="inID" placeholder="ID">
 			<input type="password" class="reqlog" name="inPW"

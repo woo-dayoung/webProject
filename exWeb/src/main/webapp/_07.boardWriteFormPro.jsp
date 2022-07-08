@@ -27,7 +27,11 @@ String contents=request.getParameter("contents");
 list=new BoardDTO(no,code,title,contents);
 String url ="";
 
-if()
+if(dao.addboard(list)){
+	url="_05.board.jsp";
+}else{
+	
+}
 
 
 
